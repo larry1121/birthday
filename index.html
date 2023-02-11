@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7529335719399218"
+     crossorigin="anonymous"></script>
+    <style>
+      .message{
+        position: absolute;
+        font-size: 20px;
+        color: white;
+        animation: move 15s forwards;
+        
+
+      }
+      @keyframes move {
+        0% {
+          top: 10*calc(100vh * Math.random());
+          left: -100vw;
+        }
+        50% {
+          top: calc(100vh * Math.random());
+          left: calc(100vh * Math.random();
+        }
+        100% {
+          top: calc(100vh * Math.random());
+ 
+        }
+      }
+      .birthday-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        font-family: Arial, sans-serif;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Birthday Message Generator</h1>
+    <input type="text" id="name" placeholder="Enter birthday person's name"></input>
+    <button onclick="generateMessages()">Generate</button>
+    <br><br>
+    <audio id="birthday-song" src="birthday-song.mp3" hidden></audio>
+    <div id="message-container"></div>
+
+    <script>
+           
+      const birthdayMessages = [
+        "생일 축하해! 특별한 날에 최선을 다하길 바래.",
+         "행복이 가득한 하루, 기쁨이 가득한 한 해가 되시길 바랍니다.",
+         "생일은 당신만큼 특별한 날을 위해 당신의 길을 기원합니다.",
+         "당신의 생일이 행복한 시간으로 가득 차고 당신의 인생이 많은 생일 축하로 가득 차길 바랍니다.",
+         "당신의 미소만큼 밝고, 마음만큼 달콤하고, 멋진 당신의 생일을 기원합니다.",
+         "사랑, 웃음, 그리고 당신에게 기쁨을 가져다주는 모든 것들로 가득 찬 생일을 기원합니다.",
+         "생일에 행복과 건강과 케이크가 가득하길!",
+         "또 한 해의 삶, 사랑, 행복을 기원합니다. 생일 축하합니다!",
+         "당신만큼 놀라운 생일을 기원합니다.",
+         "당신의 생일이 당신을 당신으로 만드는 모든 멋진 일들을 축하하는 날이 되기를 바랍니다."
+      ];
+      
+      function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+
+      function generateMessages() {
+        const name = document.getElementById("name").value;
+        document.getElementById("birthday-song").play();
+        for (const message of birthdayMessages) {
+          const messageElement = document.createElement("div");
+          messageElement.classList.add("message");
+             const randomSize = Math.floor(Math.random() * 30) + 20 + "px";
+          messageElement.style.fontSize = randomSize;
+          messageElement.innerText = `${message} ${name}!`;
+          messageElement.style.top = `${getRandomInt(0, window.innerHeight)}px`;
+          messageElement.style.left = `${getRandomInt(0, window.innerWidth)}px`;
+          messageElement.style.color = `rgb(${getRandomInt(0, 255)}, ${getRandomInt(0, 255)}, ${getRandomInt(0, 255)})`;
+          document.getElementById("message-container").appendChild(messageElement);
+         
+          setTimeout(() => messageElement.remove() , 10000);
+          
+          
+        }
+      }
+    </script>
+  </body>
+</html>
