@@ -3,23 +3,74 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7529335719399218"
      crossorigin="anonymous"></script>
     <style>
+      body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+h1 {
+  font-size: 36px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+input {
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 18px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 500px;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffcc00;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ffa500;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 48px;
+  }
+
+  input, button {
+    width: 50%;
+    max-width: 600px;
+  }
+}
+
       .message{
         position: absolute;
         font-size: 20px;
         color: white;
         animation: move 15s forwards;
+        opacity: 1;
+  transition: opacity 1s ease-in-out;
         
 
       }
+      .message.fade-out {
+  opacity: 0;
+}
       @keyframes move {
         0% {
           top: 10*calc(100vh * Math.random());
           left: -100vw;
         }
-        50% {
-          top: calc(100vh * Math.random());
-          left: calc(100vh * Math.random();
-        }
+     
         100% {
           top: calc(100vh * Math.random());
  
@@ -37,9 +88,9 @@
     </style>
   </head>
   <body>
-    <h1>Birthday Message Generator</h1>
-    <input type="text" id="name" placeholder="Enter birthday person's name"></input>
-    <button onclick="generateMessages()">Generate</button>
+    <h1>생일 축하 생성기</h1>
+    <input type="text" id="name" placeholder="주인공의 이름"></input>
+    <button onclick="generateMessages()">생일 축하해!!</button>
     <br><br>
     <audio id="birthday-song" src="birthday-song.mp3" hidden></audio>
     <div id="message-container"></div>
@@ -65,6 +116,15 @@
 
       function generateMessages() {
         const name = document.getElementById("name").value;
+  if (name === "") {
+    alert("이름을 입력해주세요!");
+    return;
+  }
+        confetti()
+        setTimeout(() => confetti() , 1000);
+        setTimeout(() => confetti() , 2000);
+    
+       
         document.getElementById("birthday-song").play();
         for (const message of birthdayMessages) {
           const messageElement = document.createElement("div");
@@ -77,11 +137,15 @@
           messageElement.style.color = `rgb(${getRandomInt(0, 255)}, ${getRandomInt(0, 255)}, ${getRandomInt(0, 255)})`;
           document.getElementById("message-container").appendChild(messageElement);
          
-          setTimeout(() => messageElement.remove() , 10000);
-          
-          
+          setTimeout(() => {
+      messageElement.classList.add("fade-out");
+      setTimeout(() => messageElement.remove(), 1000);
+    }, 9000);
+        
         }
       }
+
     </script>
+    <script src="confetti.js"></script>
   </body>
 </html>
