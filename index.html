@@ -3,6 +3,18 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7529335719399218"
      crossorigin="anonymous"></script>
     <style>
+           #copyright {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        font-size: 12px;
+        color: #999;
+      }
+
+      #copyright:before {
+        content: "Growing Up";
+        font-weight: bold;
+      }
       body {
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
@@ -94,7 +106,9 @@ button:hover {
     <br><br>
     <audio id="birthday-song" src="birthday-song.mp3" hidden></audio>
     <div id="message-container"></div>
-
+    <div id="copyright">
+      &copy; 2023 Growing Up
+    </div>
     <script>
            
       const birthdayMessages = [
