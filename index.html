@@ -16,6 +16,22 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7529335719399218"
      crossorigin="anonymous"></script>
     <style>
+      #copy-link {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffcc00;
+  color: #fff;
+  cursor: pointer;
+}
+
+#copy-link:hover {
+  background-color: #ffa500;
+}
+
            #copyright {
         position: fixed;
         bottom: 10px;
@@ -119,7 +135,9 @@ button:hover {
     <h1>Birthday Celebrator</h1>
     <input type="text" id="name" placeholder="주인공의 이름"></input>
     <button onclick="generateMessages()">생일 축하해!!</button>
-    <br><br>
+    
+    <button id="copy-link">공유하기</button>
+
     <audio class="song" loop autoplay>
       <source src="./music/hbd.mpeg">
       </source>
@@ -139,7 +157,7 @@ button:hover {
 window.addEventListener('load', () => {
   Swal.fire({
     title: '배경음악을 들으시겠습니까?',
-    // text: "You won't be able to revert this!",
+    // text: "음악은 계속!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -210,7 +228,16 @@ window.addEventListener('load', () => {
         
         }
       }
-
+      const copyLinkButton = document.getElementById("copy-link");
+copyLinkButton.addEventListener("click", () => {
+  const siteLink = document.querySelector("meta[property='og:url']").getAttribute("content");
+  navigator.clipboard.writeText(siteLink);
+  Swal.fire({
+      title: "클립보드에 복사되었습니다!",
+      icon: "success",
+      confirmButtonText: "와!",
+    });
+});
     </script>
     <script src="confetti.js"></script>
   </body>
