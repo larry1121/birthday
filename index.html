@@ -53,6 +53,9 @@ button:hover {
   background-color: #ffa500;
 }
 
+.song {
+  visibility: hidden;
+}
 @media (min-width: 768px) {
   h1 {
     font-size: 48px;
@@ -100,17 +103,47 @@ button:hover {
     </style>
   </head>
   <body>
-    <h1>생일 축하 생성기</h1>
+    <h1>Birthday Celebrator</h1>
     <input type="text" id="name" placeholder="주인공의 이름"></input>
     <button onclick="generateMessages()">생일 축하해!!</button>
     <br><br>
-    <audio id="birthday-song" src="birthday-song.mp3" hidden></audio>
+    <audio class="song" loop autoplay>
+      <source src="./music/hbd.mpeg">
+      </source>
+      Your browser isn't invited for super fun audio time.
+    </audio>
     <div id="message-container"></div>
     <div id="copyright">
       &copy; 2023 Growing Up
     </div>
+  <!-- Greensock -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+  <!-- Sweetalert -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-           
+      
+           // trigger to play music in the background with sweetalert
+window.addEventListener('load', () => {
+  Swal.fire({
+    title: '배경음악을 들으시겠습니까?',
+    // text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.querySelector('.song').play();
+      
+    } else {
+      
+    }
+  });
+});
+       
+
       const birthdayMessages = [
         "생일 축하해! 특별한 날에 최선을 다하길 바래.",
          "행복이 가득한 하루, 기쁨이 가득한 한 해가 되시길 바랍니다.",
@@ -121,7 +154,13 @@ button:hover {
          "생일에 행복과 건강과 케이크가 가득하길!",
          "또 한 해의 삶, 사랑, 행복을 기원합니다. 생일 축하합니다!",
          "당신만큼 놀라운 생일을 기원합니다.",
-         "당신의 생일이 당신을 당신으로 만드는 모든 멋진 일들을 축하하는 날이 되기를 바랍니다."
+         "당신의 생일이 당신을 당신으로 만드는 모든 멋진 일들을 축하하는 날이 되기를 바랍니다.",
+         "생일 축하합니다! 언제나 밝은 웃음을 지을 수 있도록 항상 행복한 일들만 가득하길 바랍니다.",
+         
+"생일날인데 따뜻한 미역국은 드셨나요? 생일 진심으로 축하합니다. 오늘 하루 생애 최고로 행복하시길 바랍니다.",
+"생일을 진심으로 축하드립니다. 늘 건강하고 즐거운 하루 보내시길 바랍니다.",
+"생일을 진심으로 축하드리며 건강과 행복을 기원합니다.",
+"생일 축하드려요. 소중한 사람들과 즐겁고 행복한 하루 보내세요."
       ];
       
       function getRandomInt(min, max) {
@@ -139,7 +178,7 @@ button:hover {
         setTimeout(() => confetti() , 2000);
     
        
-        document.getElementById("birthday-song").play();
+        
         for (const message of birthdayMessages) {
           const messageElement = document.createElement("div");
           messageElement.classList.add("message");
